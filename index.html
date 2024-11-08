@@ -1,39 +1,37 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Страховая компания</title>
-    <link rel="stylesheet" href="C:\Users\rainy\OneDrive\Рабочий стол\ПР7\css\style.css">
+    <title>{{ _('Bookstore') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <header>
-        <h1>Страховая компания</h1>
+        <h1>{{ _('Welcome to the Bookstore') }}</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Главная</a></li>
-                <li><a href="about.html">О сайте</a></li>
-                <li><a href="services.html">Услуги</a></li>
-                <li><a href="projects.html">Проекты</a></li>
-                <li><a href="references.html">Справочная информация</a></li>
-                <li><a href="contacts.html">Контакты</a></li>
-                <li><a href="sitemap.html">Карта сайта</a></li>
-                <li><a href="advertising.html">Реклама</a></li>
+                <li><a href="/">{{ _('All Books') }}</a></li>
+                <li><a href="/?genre=Fiction">{{ _('Fiction') }}</a></li>
+                <li><a href="/?genre=Non-Fiction">{{ _('Non-Fiction') }}</a></li>
+                <li><a href="/?genre=Science Fiction">{{ _('Science Fiction') }}</a></li>
+            </ul>
+            <ul>
+                <li><a href="/?lang=en">English</a></li>
+                <li><a href="/?lang=ru">Русский</a></li>
             </ul>
         </nav>
     </header>
-
-<main>
-    <section>
-        <img src="C:\Users\rainy\OneDrive\Рабочий стол\ПР7\photo_2024-11-08_15-00-24.jpg" alt="Добро пожаловать в нашу компанию">
-        <h2>Добро пожаловать в нашу страховую компанию!</h2>
-        <p>Мы предоставляем широкий спектр страховых услуг для вашего спокойствия и безопасности.</p>
-    </section>
-</main>
-
-
-    <footer>
-        <p>&copy; 2024 Страховая компания. Все права защищены.</p>
-    </footer>
+    <main>
+        {% for book in books %}
+        <div class="book">
+            <h2>{{ book.title }}</h2>
+            <p><strong>{{ _('Genre:') }}</strong> {{ book.genre }}</p>
+            <p><strong>{{ _('Year:') }}</strong> {{ book.year }}</p>
+            <p>{{ book.description }}</p>
+            <p><strong>{{ _('Status:') }}</strong> {% if book.in_stock %}{{ _('In Stock') }}{% else %}{{ _('Out of Stock') }}{% endif %}</p>
+        </div>
+        {% endfor %}
+    </main>
 </body>
 </html>
